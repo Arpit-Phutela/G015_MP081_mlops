@@ -1,0 +1,22 @@
+{
+  "psi":{
+    "battery_start_pct":0.0321819664,
+    "session_minutes":0.035219787,
+    "charger_kw":4.3230189076,
+    "temp_c":0.0376127481,
+    "vehicle_age_yr":0.0600219012,
+    "queue_before":0.2018542714
+  },
+  "most_drifted_feature":"charger_kw",
+  "mae_by_group":{
+    "highway":24.4476497354,
+    "mall":7.8019345499,
+    "residential":6.9126516667
+  },
+  "worst_served_group":"highway",
+  "mae_v1_on_check":8.4458992593,
+  "mae_v2_on_check":4.355377037,
+  "decision":"promote",
+  "v2_version":"4",
+  "v2_run_id":"25abc2f2030848bb9f6ea81126f7e7be"
+}

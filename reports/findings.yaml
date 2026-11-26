@@ -1,62 +1,66 @@
-# MP081 findings --- fill in every value, keep every key.
-# The marking tool reads this file. Write null only where the comment says so.
-# Use the exact column names and group values from your data files.
 
-group_id: "G015"          # your group id, e.g. "G042"
+group_id: "G015"
 problem_id: "MP081"
 
 data_issues:
-  # For each of the 7 kinds: present: true or false.
-  # If present is false, leave the other values as null.
   leaking_column:
-    present: null
-    column: null           # the column that must not be used as a feature
+    present: true
+    column: "kwh_billed_in_app"
+
   unit_mixup:
-    present: null
-    column: null           # the column recorded in a different unit
-    group_value: null      # the value of station_type whose rows are affected
-    factor: null           # wrong value = right value x factor
+    present: false
+    column: null
+    group_value: null
+    factor: null
+
   sentinel_value:
-    present: null
-    column: null
-    value: null            # the special number typed instead of a blank
-    count: null            # how many rows have it
+    present: true
+    column: "session_minutes"
+    value: 999
+    count: 55
+
   duplicate_rows:
-    present: null
-    count: null            # number of EXTRA copies (rows you would delete)
+    present: false
+    count: null
+
   stuck_sensor:
-    present: null
-    column: null
-    start_date: null       # first date with the stuck value, YYYY-MM-DD
-    end_date: null         # last date with the stuck value, YYYY-MM-DD
+    present: true
+    column: "queue_before"
+    start_date: "2026-04-07"
+    end_date: "2026-04-30"
+
   target_typos:
-    present: null
-    count: null            # rows whose target was typed 10 times too big
+    present: true
+    count: 12
+
   spelling_variants:
-    present: null
+    present: false
     column: null
-    true_levels: null      # how many real categories there are after cleaning
+    true_levels: null
 
 tracking:
-  experiment_name: null
-  best_run_id: null        # the MLflow run id of your v1 model
-  registered_model_name: null
-  champion_version: null
+  experiment_name: "MP081-Energy-Prediction"
+  best_run_id: "d4a933ac09764429a335f6e5d076c105"
+  registered_model_name: "MP081-Energy-Model"
+  champion_version: 4
 
 monitoring:
-  psi:                     # cleaned train.csv vs later.csv, 10 bins
-    battery_start_pct: null
-    session_minutes: null
-    charger_kw: null
-    temp_c: null
-    vehicle_age_yr: null
-    queue_before: null
-  most_drifted_feature: null
-  mae_by_group:            # v1 on later.csv, per value of station_type
-    'Mall': null
-    'Highway': null
-    'Residential': null
-  worst_served_group: null
-  mae_v1_on_check: null    # v1 on the last 30% of later.csv (by date)
-  mae_v2_on_check: null    # v2 on the same rows
-  decision: null           # promote or keep
+  psi:
+    battery_start_pct: 0.0321819664
+    session_minutes: 0.035219787
+    charger_kw: 4.3230189076
+    temp_c: 0.0376127481
+    vehicle_age_yr: 0.0600219012
+    queue_before: 0.2018542714
+
+  most_drifted_feature: "charger_kw"
+
+  mae_by_group:
+    'Mall': 7.8019345499
+    'Highway': 24.4476497354
+    'Residential': 6.9126516667
+
+  worst_served_group: "Highway"
+  mae_v1_on_check: 8.4458992593
+  mae_v2_on_check: 4.355377037
+  decision: "promote"
